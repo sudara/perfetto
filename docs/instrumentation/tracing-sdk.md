@@ -52,6 +52,13 @@ add_library(perfetto STATIC perfetto/sdk/perfetto.cc)
 # Link the library to your main executable.
 add_executable(example example.cc)
 target_link_libraries(example perfetto ${CMAKE_THREAD_LIBS_INIT})
+target_compile_options(perfetto PRIVATE "/bigobj")
+```
+
+If your project includes Windows.h, you may need the following:
+
+```cmake
+target_compile_definitions(perfetto PUBLIC NOMINMAX=1 WIN32_LEAN_AND_MEAN=1)
 ```
 
 Next, initialize Perfetto in your program:
